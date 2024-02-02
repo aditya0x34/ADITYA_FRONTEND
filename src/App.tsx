@@ -4,19 +4,20 @@ import { AddTask } from './pages/AddTask/AddTask';
 import { TaskDetails } from './pages/TaskDetails/TaskDetails';
 import { TaskList } from './pages/TaskList/TaskList';
 import { UpdateTask } from './pages/UpdateTask/UpdateTask';
+import { HashRouter as Router,  } from 'react-router-dom';
 
 function App() {
   return (
-  <BrowserRouter>
+    <Router>
       <Routes>
-        <Route element={<SideNavbar/>}>
-          <Route path='/' element={<TaskList/> } />
-          <Route path='/AddTask' element={<AddTask/> } />
-          <Route path='/update/:taskId' element={<UpdateTask/> } />
-            <Route path='/:taskId' element={<TaskDetails/> } />
+        <Route path='/' element={<SideNavbar/>}>
+          <Route index element={<TaskList/>} />
+          <Route path='AddTask' element={<AddTask/>} />
+          <Route path='update/:taskId' element={<UpdateTask/>} />
+          <Route path=':taskId' element={<TaskDetails/>} />
         </Route>
       </Routes>
-  </BrowserRouter>
+    </Router>
   );
 }
 
