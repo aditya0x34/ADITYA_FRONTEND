@@ -93,7 +93,7 @@ export const TaskDetails = (props: {}) => {
   }
   return (
     <div>
-      <div className={` h-[30vh] bg-[url(https://files.catbox.moe/fuijnn.png)] relative`}>
+      <div className={` h-[30vh] bg-[url(https://cdn5.vectorstock.com/i/1000x1000/93/79/back-to-school-drawing-background-on-copy-book-vector-5629379.jpg)] relative`}>
         <div className='gap-x-3 flex items-end absolute bottom-2 left-2'>
           <Link to={"/update/" + taskId}>
             <UpdateBtn />
