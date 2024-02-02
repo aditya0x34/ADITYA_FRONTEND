@@ -23,8 +23,6 @@ const deleteFetcher = async (url: string, { arg }: { arg: any }) => {
 export const DeleteBtn = (props: { taskId: string }) => {
   const { trigger, isMutating, data, error } = useSWRMutation(`${process.env.REACT_APP_API_BACKEND_URL}tasks/${props.taskId}`, deleteFetcher, {});
 
-  if(true){
-  }
   return (
     <div className='flex flex-col-reverse'>
       <button onClick={() => trigger({ endPoint: props.taskId })} className=' bg-black text-sm text-white font-bold rounded-md px-3 py-1' >
@@ -97,8 +95,8 @@ export const TaskDetails = (props: {}) => {
     <div>
       <div className={` h-[30vh] bg-[url(https://files.catbox.moe/fuijnn.png)] relative`}>
         <div className='gap-x-3 flex items-end absolute bottom-2 left-2'>
-          <Link  to={"/update/"+taskId}>
-          <UpdateBtn />
+          <Link to={"/update/" + taskId}>
+            <UpdateBtn />
           </Link>
           <DeleteBtn taskId={data?.data?.todoId} />
         </div>

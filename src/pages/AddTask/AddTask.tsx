@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { Navigate } from 'react-router-dom';
 import useSWRMutation from 'swr/mutation'
 
 const LoadingIcon = () => (
@@ -95,7 +96,8 @@ export const AddTask = (props: {}) => {
             <button disabled={isMutating} className={`flex place-content-center w-20 h-9 font-bold text-sm  ${!isMutating ? 'bg-green-500' : 'bg-gray-400'}  text-white px-4 py-2 rounded-md shadow-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green`}>
               {!isMutating ? "Submit" : <LoadingIcon />}
             </button>
-            {data?.status?.includes("ok") && <span className=' text-green-600'>{data?.message}</span>}
+            {/* {data?.status?.includes("ok") && <span className=' text-green-600'>{data?.message}</span>} */}
+            {data?.status?.includes("ok") && <Navigate to="/" replace={true} />}
             {data?.status?.includes("error") && <span className='text-red-600'>{data?.message}</span>}
           </div>
         </div>
