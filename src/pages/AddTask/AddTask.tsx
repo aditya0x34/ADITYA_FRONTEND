@@ -1,4 +1,3 @@
-import React from 'react'
 import { useForm } from 'react-hook-form';
 import useSWRMutation from 'swr/mutation'
 
@@ -31,7 +30,6 @@ const createNewTask = async (url: string, { arg }: { arg: any }) => {
     }).then((data) => data.json());
     return data;
   } catch (err) {
-    console.log(err)
     return new Error("Something went wrong try again")
   }
 
@@ -41,7 +39,6 @@ export const AddTask = (props: {}) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { trigger, isMutating, data, error } = useSWRMutation(`${process.env.REACT_APP_API_BACKEND_URL}tasks`, createNewTask, {});
   const onSubmit = (todoDetails: any) => {
-    console.log(todoDetails)
     trigger({ body: todoDetails })
   }
   if (error) {
@@ -49,7 +46,7 @@ export const AddTask = (props: {}) => {
       <div>
         Something went wrong. Please try again after some time.
         <div>
-        {error?.message}
+          {error?.message}
         </div>
       </div>
     )
@@ -75,7 +72,7 @@ export const AddTask = (props: {}) => {
                   required: { value: true, message: 'required Title' }
                 })}
                 type='text' placeholder='Title' className='w-full md:w-auto  p-2 border-b-2 border-gray-300 focus:outline-none focus:border-green-500' />
-              {errors.title && <div className='italic text-xs text-red-500'>{errors.title.message as string}</div>}
+              {errors?.title && <div className='italic text-xs text-red-500'>{errors?.title?.message as string}</div>}
             </div>
             <div className='mb-4'>
               <input
@@ -83,7 +80,7 @@ export const AddTask = (props: {}) => {
                   required: { value: true, message: 'required Description' }
                 })}
                 type='text' placeholder='Description' className='w-full md:w-auto  p-2 border-b-2 border-gray-300 focus:outline-none focus:border-green-500' />
-              {errors.description && <div className='italic text-xs text-red-500'>{errors.description.message as string}</div>}
+              {errors?.description && <div className='italic text-xs text-red-500'>{errors?.description?.message as string}</div>}
             </div>
           </div>
           <div className='mb-4'>
@@ -91,8 +88,8 @@ export const AddTask = (props: {}) => {
               {...register("due_date", {
                 required: { value: true, message: 'required Description' }
               })}
-              type='datetime-local'  className='w-full md:w-auto p-2 border-b-2 border-gray-300 focus:outline-none focus:border-green-500' />
-            {errors.due_date && <div className='italic text-xs text-red-500'>{errors.due_date.message as string}</div>}
+              type='datetime-local' className='w-full md:w-auto p-2 border-b-2 border-gray-300 focus:outline-none focus:border-green-500' />
+            {errors?.due_date && <div className='italic text-xs text-red-500'>{errors?.due_date?.message as string}</div>}
           </div>
           <div>
             <button disabled={isMutating} className={`flex place-content-center w-20 h-9 font-bold text-sm  ${!isMutating ? 'bg-green-500' : 'bg-gray-400'}  text-white px-4 py-2 rounded-md shadow-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green`}>

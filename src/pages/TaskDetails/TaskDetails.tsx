@@ -1,28 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import useSWRMutation from 'swr/mutation'
 import useSWR from 'swr'
-
+import { LoadingIcon } from '../../utils/icons';
 import { Navigate } from "react-router-dom";
-const LoadingIcon = () => (
-  <svg className="animate-spin h-4 w-4 mr-3 ..." viewBox="0 0 24 24">
-    <path
-      fill="currentColor"
-      fillRule="evenodd"
-      d="M12 19a7 7 0 100-14 7 7 0 000 14zm0 3c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
-      clipRule="evenodd"
-      opacity={0.2}
-    />
-    <path
-      fill="currentColor"
-      d="M2 12C2 6.477 6.477 2 12 2v3a7 7 0 00-7 7H2z"
-    />
-  </svg>
-)
 
 const deleteFetcher = async (url: string, { arg }: { arg: any }) => {
-  console.log(arg.endPoint)
-  const { body } = arg
   try {
     const data = await fetch(url, {
       method: 'DELETE',
@@ -32,7 +15,6 @@ const deleteFetcher = async (url: string, { arg }: { arg: any }) => {
     }).then((data) => data.json());
     return data;
   } catch (err) {
-    console.log(err)
     return new Error("Something went wrong try again")
   }
 
@@ -40,7 +22,6 @@ const deleteFetcher = async (url: string, { arg }: { arg: any }) => {
 
 export const DeleteBtn = (props: { taskId: string }) => {
   const { trigger, isMutating, data, error } = useSWRMutation(`${process.env.REACT_APP_API_BACKEND_URL}tasks/${props.taskId}`, deleteFetcher, {});
-  console.log(data, "deleting....")
 
   if(true){
   }

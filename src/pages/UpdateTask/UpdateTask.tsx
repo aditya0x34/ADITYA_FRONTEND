@@ -1,23 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
-const LoadingIcon = () => (
-  <svg className="animate-spin h-4 w-4 mr-3 ..." viewBox="0 0 24 24">
-    <path
-      fill="currentColor"
-      fillRule="evenodd"
-      d="M12 19a7 7 0 100-14 7 7 0 000 14zm0 3c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
-      clipRule="evenodd"
-      opacity={0.2}
-    />
-    <path
-      fill="currentColor"
-      d="M2 12C2 6.477 6.477 2 12 2v3a7 7 0 00-7 7H2z"
-    />
-  </svg>
-)
-
 
 const createNewTask = async (url: string, { arg }: { arg: any }) => {
   const { body } = arg
@@ -31,7 +15,6 @@ const createNewTask = async (url: string, { arg }: { arg: any }) => {
     }).then((data) => data.json());
     return data;
   } catch (err) {
-    console.log(err)
     return new Error("Something went wrong try again")
   }
 
@@ -73,7 +56,6 @@ export const UpdateTask = (props: {}) => {
     try {
       setUpdateMessage('');
       const updatedTask = await fetch(process.env.REACT_APP_API_BACKEND_URL + `tasks/${taskId}`, {
-
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +92,7 @@ export const UpdateTask = (props: {}) => {
                   required: { value: true, message: 'required Title' }
                 })}
                 type='text' placeholder='Title' className='w-full md:w-auto  p-2 border-b-2 border-gray-300 focus:outline-none focus:border-green-500' />
-              {errors.title && <div className='italic text-xs text-red-500'>{errors.title.message as string}</div>}
+              {errors.title && <div className='italic text-xs text-red-500'>{errors?.title?.message as string}</div>}
             </div>
             <div className='mb-4'>
               <input
@@ -119,7 +101,7 @@ export const UpdateTask = (props: {}) => {
                   required: { value: true, message: 'required Description' }
                 })}
                 type='text' placeholder='Description' className='w-full md:w-auto  p-2 border-b-2 border-gray-300 focus:outline-none focus:border-green-500' />
-              {errors.description && <div className='italic text-xs text-red-500'>{errors.description.message as string}</div>}
+              {errors.description && <div className='italic text-xs text-red-500'>{errors?.description?.message as string}</div>}
             </div>
           </div>
 
@@ -131,7 +113,7 @@ export const UpdateTask = (props: {}) => {
                   required: { value: true, message: 'required Time' }
                 })}
                 type='datetime-local' className='w-full md:w-auto p-2 border-b-2 border-gray-300 focus:outline-none focus:border-green-500' />
-              {errors.due_date && <div className='italic text-xs text-red-500'>{errors.due_date.message as string}</div>}
+              {errors.due_date && <div className='italic text-xs text-red-500'>{errors?.due_date?.message as string}</div>}
             </div>
 
             <div
@@ -143,13 +125,7 @@ export const UpdateTask = (props: {}) => {
 
               /> {!data?.data?.completed ? "Completed" : "Unfinished"}
             </div>
-
-
-
           </div>
-
-
-
           <div>
             <div className='flex  gap-3'>
               <button className={`flex place-content-center w-20 h-9 font-bold text-sm  bg-green-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green`}>
